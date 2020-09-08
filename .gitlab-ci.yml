@@ -58,10 +58,11 @@ publish:
   script:
     - *authenticate-to-package-registry
     - cat .npmrc
+    - cat ~/.npmrc
     - npm ci
     - npm run make-distribution
     - export RM_TMP_TAG=cicd-$(date +%s)
-    - npm publish --access public --tag $RM_TMP_TAG
+    - npm publish --verbose --access public --tag $RM_TMP_TAG
     - ./tag-nodejs
   only:
     - /^\d+\.\d+\.\d+(\-[^\.]+\.\d+)?$/
