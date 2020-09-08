@@ -1,9 +1,3 @@
-.authenticate-to-package-registry:
-  - &authenticate-to-package-registry |
-    npm config set $NPM_SCOPE:registry https://$NPM_REGISTRY_HOST_PATH
-    npm config set //$NPM_REGISTRY_HOST_PATH:_authToken $NPM_WRITE_TOKEN
-    npm config set //$NPM_PROJECT_HOST_PATH_PREFIX$CI_PROJECT_ID$NPM_PROJECT_HOST_PATH_SUFFIX:_authToken $NPM_WRITE_TOKEN
-
 before_script:
   - node --version
   - npm --version
@@ -56,13 +50,13 @@ publish:
   stage: publish
   image: node:10.3.0-alpine
   script:
-    - *authenticate-to-package-registry
-    - cat .npmrc
-    - cat ~/.npmrc
+    - npm config set @northscaler:registry https://gitlab.com/api/v4/packages/npm/
+    - npm config set //gitlab.com/api/v4/packages/npm/:_authToken ${CI_JOB_TOKEN}
+    - npm config set //gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken ${CI_JOB_TOKEN}
     - npm ci
     - npm run make-distribution
     - export RM_TMP_TAG=cicd-$(date +%s)
-    - npm publish --verbose --access public --tag $RM_TMP_TAG
+    - npm publish --verbose --tag $RM_TMP_TAG
     - ./tag-nodejs
   only:
     - /^\d+\.\d+\.\d+(\-[^\.]+\.\d+)?$/
