@@ -1,8 +1,8 @@
 .authenticate-to-package-registry:
   - &authenticate-to-package-registry |
-    echo "@northscaler:registry=https://gitlab.com/api/v4/packages/npm/" >> .npmrc
-    echo "//gitlab.com/api/v4/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
-    echo "//gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
+    echo "$NPM_SCOPE:registry=https://$NPM_REGISTRY_HOST_PATH" >> ~/.npmrc
+    echo "//$NPM_REGISTRY_HOST_PATH:_authToken=$NPM_WRITE_TOKEN" >> ~/.npmrc
+    echo "//$NPM_PROJECT_HOST_PATH_PREFIX$CI_PROJECT_ID$NPM_PROJECT_HOST_PATH_SUFFIX:_authToken=$NPM_WRITE_TOKEN" >> ~/.npmrc
 
 before_script:
   - node --version
