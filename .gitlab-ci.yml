@@ -1,8 +1,8 @@
 .authenticate-to-package-registry:
   - &authenticate-to-package-registry |
-    echo "$NPM_SCOPE:registry=https://$NPM_REGISTRY_HOST_PATH" >> ~/.npmrc
-    echo "//$NPM_REGISTRY_HOST_PATH:_authToken=$NPM_WRITE_TOKEN" >> ~/.npmrc
-    echo "//$NPM_PROJECT_HOST_PATH_PREFIX$CI_PROJECT_ID$NPM_PROJECT_HOST_PATH_SUFFIX:_authToken=$NPM_WRITE_TOKEN" >> ~/.npmrc
+    npm config set $NPM_SCOPE:registry https://$NPM_REGISTRY_HOST_PATH
+    npm config set //$NPM_REGISTRY_HOST_PATH:_authToken $NPM_WRITE_TOKEN
+    npm config set //$NPM_PROJECT_HOST_PATH_PREFIX$CI_PROJECT_ID$NPM_PROJECT_HOST_PATH_SUFFIX:_authToken $NPM_WRITE_TOKEN
 
 before_script:
   - node --version
