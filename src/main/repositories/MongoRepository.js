@@ -26,6 +26,22 @@ const MongoRepository = Trait(superclass =>
       }
     }
 
+    _removeNullishesIn (o) {
+      const recurse = it => this._removeNullishesIn(it)
+
+      if (o === null || o === undefined) return o
+      else if (Array.isArray(o)) return o.map(recurse)
+      else if (typeof o !== 'object') return o
+
+      Object.keys(o).forEach(key => {
+        if (o[key] === null || o[key] === undefined) delete o[key]
+        else if (Array.isArray(o[key])) return o[key].map(recurse)
+        else if (typeof o[key] === 'object') o[key] = this._removeNullishesIn(o[key])
+      })
+
+      return o
+    }
+
     /**
      * Returns the given collection or `this._collection`
      * @private

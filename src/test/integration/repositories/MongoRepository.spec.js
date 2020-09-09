@@ -136,4 +136,10 @@ describe('integration tests of MongoRepository', () => {
   it('should throw on no object', async function () {
     expect(async () => await repo._insert().to.throw(IllegalArgumentError))
   })
+
+  it('should remove nullishes', function () {
+    const o = { a: 'a', b: { c: undefined, d: { e: null } }, f: ['f', { g: null, h: 'h' }] }
+    const actual = repo._removeNullishesIn(o)
+    expect(actual).to.deep.equal({ a: 'a', b: { d: {} }, f: ['f', { h: 'h' }] })
+  })
 })
