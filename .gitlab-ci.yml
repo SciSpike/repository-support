@@ -57,14 +57,9 @@ publish:
     - npm ci
     - npm run make-distribution
     - export RM_TMP_TAG=cicd-$(date +%s)
-    - npm publish --verbose --tag $RM_TMP_TAG
-    # taken from taken from https://gitlab.com/node-plex/api-auth/-/commit/178fe7a5c458a2cb2ce3f4ef8dcad6e1cb09370f#7233f50c44e5ee87597bc50dec30966b83d23ef8
-    # as a workaround for https://gitlab.com/gitlab-org/gitlab/-/issues/121668
-    - npm config set $NPM_SCOPE:registry https://gitlab.com/api/v4/packages/npm/
-    - npm config set //gitlab.com/api/v4/packages/npm/:_authToken ${CI_JOB_TOKEN}
-    - npm config set //gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken ${CI_JOB_TOKEN}
-    - sleep 10
-    # end workaround
-    - ./tag-nodejs
+    # TODO: uncomment stuff below when gitlab fixes their `npm dist-tags` bug.
+    # See https://gitlab.com/gitlab-org/gitlab/-/issues/121668#note_335895866 & https://gitlab.com/gitlab-org/gitlab/-/issues/220985
+    - npm publish --verbose # --tag $RM_TMP_TAG
+    # ./tag-nodejs
   only:
     - /^\d+\.\d+\.\d+(\-[^\.]+\.\d+)?$/
