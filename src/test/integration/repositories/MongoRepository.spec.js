@@ -10,7 +10,7 @@ const uuid = require('uuid').v4
 const { traits } = require('@northscaler/mutrait')
 const { MongoRepository } = require('../../../main/repositories')
 const { IllegalArgumentError } = require('@northscaler/error-support')
-const { UniqueKeyViolationError } = require('../../../main/errors')
+const { UniqueKeyViolationError, ObjectNotFoundError } = require('../../../main/errors')
 
 class Repo extends traits(MongoRepository) {
   constructor ({ db, collection }) {
@@ -107,6 +107,29 @@ describe('integration tests of MongoRepository', () => {
     await repo._upsert(doc)
     it = await repo._getById(doc._id)
     expect(it).to.deep.equal(doc)
+  })
+
+  it('should update a document', async function () {
+    const doc = { _id: uuid(), _a: 1 }
+    console.log(doc._id)
+    await repo._insert(doc)
+    let it = await repo._getById(doc._id)
+    expect(it).to.deep.equal(doc)
+
+    doc._a = 2
+    await repo._update(doc)
+    it = await repo._getById(doc._id)
+    expect(it).to.deep.equal(doc)
+
+    try {
+      doc._id = uuid()
+      await repo._update(doc)
+      expect.fail('should have thrown')
+    } catch (e) {
+      expect(e.name).to.equal('ObjectNotFoundError')
+      expect(e.code).to.equal(ObjectNotFoundError.CODE)
+      console.log(e)
+    }
   })
 
   it('should overwrite a document', async function () {

@@ -3,7 +3,7 @@
 const { MissingRequiredArgumentError, IllegalArgumentError } = require('@northscaler/error-support')
 const uuid = require('uuid').v1
 const { Trait } = require('@northscaler/mutrait')
-const { UniqueKeyViolationError } = require('../errors')
+const { UniqueKeyViolationError, ObjectNotFoundError } = require('../errors')
 
 const ERROR_CODES = {
   DUPLICATE_KEY: 11000
@@ -50,6 +50,11 @@ const MongoRepository = Trait(superclass =>
       return collection || this._collection
     }
 
+    /**
+     * Strict insert; fails if object with `object._id` already exists.
+     *
+     * @private
+     */
     async _insert (object, { collection, options } = {}) {
       if (!object) throw new IllegalArgumentError({ info: { object } })
       object._id = object._id || uuid()
@@ -59,6 +64,32 @@ const MongoRepository = Trait(superclass =>
       return object
     }
 
+    /**
+     * Strict update; fails if object with `object._id` does not exist yet.
+     *
+     * @private
+     */
+    async _update (object, { collection, options } = {}) {
+      if (!object) throw new IllegalArgumentError({ info: { object } })
+      object._id = object._id || uuid()
+
+      const result = await this._tryDbOp(async () => await this._getCollection(collection).updateOne(
+        { _id: object._id },
+        { $set: object },
+        { ...options, upsert: false }
+      ))
+      if (result.result.nModified !== 1) {
+        throw new ObjectNotFoundError({ message: `object with _id ${object._id} must exist`, info: { object } })
+      }
+
+      return object
+    }
+
+    /**
+     * Inserts a new document or updates, partially or completely, an existing document.
+     *
+     * @private
+     */
     async _upsert (object, { collection, options } = {}) {
       if (!object) throw new IllegalArgumentError({ info: { object } })
       object._id = object._id || uuid()
@@ -72,6 +103,11 @@ const MongoRepository = Trait(superclass =>
       return object
     }
 
+    /**
+     * Replaces an existing document entirely; this is not a partial update.
+     *
+     * @private
+     */
     async _overwrite (object, { collection, options } = {}) {
       if (!object) throw new IllegalArgumentError({ info: { object } })
       object._id = object._id || uuid()
