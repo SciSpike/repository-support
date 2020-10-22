@@ -14,24 +14,8 @@ build-10.3.0:
   script:
     - npm run build
 
-build-11.0.0:
-  image: node:11.0.0-alpine
-  stage: build
-  services:
-    - mongo
-  script:
-    - npm run build
-
 build-12.0.0:
   image: node:12.0.0-alpine
-  stage: build
-  services:
-    - mongo
-  script:
-    - npm run build
-
-build-13.0.0:
-  image: node:13.0.0-alpine
   stage: build
   services:
     - mongo
