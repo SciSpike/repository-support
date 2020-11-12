@@ -15,4 +15,6 @@ for it in $TYPES; do
 done
 get tag-nodejs
 
+export HUSKY_SKIP_HOOKS=1
+
 ./release $(echo -n "$TYPES" | tr ' ' '+') $@
