@@ -1,3 +1,9 @@
+.authenticate-npm:
+  - &authenticate-npm |
+    export NPM_SCOPE=$(node -e 'console.log(require("./package.json").name.split("/")[0])')
+    npm config set $NPM_SCOPE:registry https://npm.cloudsmith.io/northscaler/npm/
+    npm config set //npm.cloudsmith.io/northscaler/npm/:_authToken ${CLOUDSMITH_API_KEY}
+
 before_script:
   - node --version
   - npm --version
@@ -12,6 +18,7 @@ build-10.3.0:
   services:
     - mongo
   script:
+    - *authenticate-npm
     - npm run build
 
 build-12.0.0:
@@ -20,6 +27,7 @@ build-12.0.0:
   services:
     - mongo
   script:
+    - *authenticate-npm
     - npm run build
 
 build-14.0.0:
@@ -28,22 +36,17 @@ build-14.0.0:
   services:
     - mongo
   script:
+    - *authenticate-npm
     - npm run build
 
 publish:
   stage: publish
   image: node:12-alpine
   script:
-    - export NPM_SCOPE=$(node -e 'console.log(require("./package.json").name.split("/")[0])')
-    - npm config set $NPM_SCOPE:registry https://gitlab.com/api/v4/packages/npm/
-    - npm config set //gitlab.com/api/v4/packages/npm/:_authToken ${CI_JOB_TOKEN}
-    - npm config set //gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken ${CI_JOB_TOKEN}
+    - *authenticate-npm
     - npm ci
     - npm run make-distribution
-    # TODO: uncomment stuff below when gitlab fixes their `npm dist-tags` bug.
-    # See https://gitlab.com/gitlab-org/gitlab/-/issues/121668#note_335895866 & https://gitlab.com/gitlab-org/gitlab/-/issues/220985
-    # export RM_TMP_TAG=cicd-$(date +%s)
-    - npm publish --verbose # --tag $RM_TMP_TAG
-    # ./tag-nodejs
+    - npm publish --verbose --tag $CI_COMMIT_SHORT_SHA
+    - RM_TMP_TAG=$CI_COMMIT_SHORT_SHA RM_KEEP_TMP_TAG=1 ./tag-nodejs
   only:
     - /^\d+\.\d+\.\d+(\-[^\.]+\.\d+)?$/
