@@ -1,3 +1,4 @@
 module.exports = {
-  OptimisticallyLockable: require('./OptimisticallyLockable')
+  OptimisticallyLockable: require('./OptimisticallyLockable'),
+  MongoSchemaMigrationRepositorySupport: require('./MongoSchemaMigrationRepositorySupport')
 }

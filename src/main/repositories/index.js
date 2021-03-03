@@ -1,3 +1,4 @@
 module.exports = {
-  MongoRepository: require('./MongoRepository')
+  MongoRepository: require('./MongoRepository'),
+  MongoSchemaVersionRepository: require('./MongoSchemaVersionRepository')
 }

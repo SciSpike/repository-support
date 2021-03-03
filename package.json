@@ -8,7 +8,7 @@
     "url": "https://gitlab.com/northscaler/protected/repository-support"
   },
   "engines": {
-    "node": ">=10.3.0"
+    "node": ">=12.0.0"
   },
   "scripts": {
     "build": "npm ci && npm test",
@@ -61,12 +61,15 @@
   },
   "dependencies": {
     "@babel/polyfill": "7.12.1",
+    "@northscaler/entity-support": "0.3.0-pre.9",
     "@northscaler/enum-support": "4.2.9",
     "@northscaler/error-support": "3.4.3",
     "@northscaler/mutrait": "1.2.4",
     "@northscaler/property-decorator": "0.1.2",
+    "bluebird": "3.7.2",
     "lodash.clonedeepwith": "4.5.0",
-    "moment-timezone": "0.5.31"
+    "moment-timezone": "0.5.31",
+    "semver": "7.3.2"
   },
   "devDependencies": {
     "@babel/cli": "7.12.1",
@@ -85,6 +88,7 @@
     "acorn": "8.0.4",
     "babel-eslint": "10.1.0",
     "chai": "4.2.0",
+    "chai-as-promised": "7.1.1",
     "copyfiles": "2.4.0",
     "dirty-chai": "2.0.1",
     "fs-extra": "9.0.1",
@@ -93,6 +97,8 @@
     "jsdoc": "3.6.6",
     "lodash.template": "4.5.0",
     "mocha": "8.2.1",
+    "mock-fs": "4.13.0",
+    "mock-require": "3.0.3",
     "mongodb": "3.6.3",
     "mongoose": "5.10.13",
     "npm-run-all": "4.1.5",
