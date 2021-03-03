@@ -1,4 +1,4 @@
-/* global describe, it, before, after */
+/* global describe, it, before */
 'use strict'
 
 const chai = require('chai')
@@ -38,10 +38,6 @@ describe('integration tests of MongoRepository', () => {
 
     collection = await db.createCollection(uuid())
     repo = new Repo({ db, collection })
-  })
-
-  after(async function () {
-    if (db) db.client.close()
   })
 
   it('should insert a document', async function () {
