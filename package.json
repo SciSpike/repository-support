@@ -52,8 +52,7 @@
     "index.js"
   ],
   "publishConfig": {
-    "access": "restricted",
-    "@northscaler:registry": "https://gitlab.com/api/v4/projects/21008900/packages/npm/"
+    "access": "restricted"
   },
   "peerDependencies": {
     "mongodb": ">=3.6.0",
