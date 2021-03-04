@@ -1,8 +1,8 @@
 .authenticate-npm:
   - &authenticate-npm |
     export NPM_SCOPE=$(node -e 'console.log(require("./package.json").name.split("/")[0])')
-    npm config set $NPM_SCOPE:registry https://npm.cloudsmith.io/northscaler/npm/
-    npm config set //npm.cloudsmith.io/northscaler/npm/:_authToken ${CLOUDSMITH_API_KEY}
+    npm config set $NPM_SCOPE:registry https://npm.cloudsmith.io/northscaler/protected/
+    npm config set //npm.cloudsmith.io/northscaler/protected/:_authToken ${CLOUDSMITH_API_KEY}
 
 before_script:
   - node --version
@@ -37,7 +37,7 @@ publish:
     - *authenticate-npm
     - npm ci
     - npm run make-distribution
-    - npm publish --verbose --tag $CI_COMMIT_SHORT_SHA
-    - RM_TMP_TAG=$CI_COMMIT_SHORT_SHA RM_KEEP_TMP_TAG=1 ./tag-nodejs
+    - npm publish --verbose --tag sha-$CI_COMMIT_SHORT_SHA
+    - RM_TMP_TAG=sha-$CI_COMMIT_SHORT_SHA RM_KEEP_TMP_TAG=1 ./tag-nodejs
   only:
     - /^\d+\.\d+\.\d+(\-[^\.]+\.\d+)?$/
