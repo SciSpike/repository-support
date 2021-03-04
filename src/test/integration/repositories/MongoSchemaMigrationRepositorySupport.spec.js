@@ -50,7 +50,7 @@ class Repo extends traits(MongoRepository, MongoSchemaMigrationRepositorySupport
   static async ensureSeedData (collection) {}
 }
 
-describe('integration tests of MongoSchemaVersionMigrationSupport', function () {
+describe('integration tests of MongoSchemaMigrationRepositorySupport', function () {
   let db
   let repo
 
