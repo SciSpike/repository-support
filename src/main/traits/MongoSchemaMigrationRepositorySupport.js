@@ -133,18 +133,14 @@ const MongoSchemaMigrationRepositorySupport = Trait(superclass =>
      * @param collection
      * @returns {Promise<void>}
      */
-    static async ensureIndexes (collection) {
-      throw new MethodNotImplementedError('Method ensureIndexes should be implemented')
-    }
+    static async ensureIndexes (collection) { }
 
     /**
      * Initial seed data
      * @param collection
      * @returns {Promise<void>}
      */
-    static async ensureSeedData (collection) {
-      throw new MethodNotImplementedError('Method ensureSeedData should be implemented')
-    }
+    static async ensureSeedData (collection) { }
   }
 )
 
