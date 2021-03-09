@@ -4,21 +4,12 @@ const fs = require('fs')
 const MongoSchemaVersionRepository = require('../repositories/MongoSchemaVersionRepository')
 const SchemaVersion = require('../entities/SchemaVersion')
 const { Trait } = require('@northscaler/mutrait')
-const { MethodNotImplementedError, MissingRequiredArgumentError } = require('@northscaler/error-support')
+const { MissingRequiredArgumentError } = require('@northscaler/error-support')
 const semver = require('semver')
 const Promise = require('bluebird')
 
 const MongoSchemaMigrationRepositorySupport = Trait(superclass =>
   class extends superclass {
-    /**
-     *
-     * @param db
-     * @returns {Promise<void>}
-     */
-    static async ensureSchema ({ db, options }) {
-      throw new MethodNotImplementedError('This method should be implemented by the extending class and ensureSchemaInternal called')
-    }
-
     /**
      * Create and / or migrate schema
      * @protected
@@ -36,7 +27,9 @@ const MongoSchemaMigrationRepositorySupport = Trait(superclass =>
       schemaVersionId,
       pkg,
       migrationsDir,
-      options
+      options,
+      ensureIndexesFn,
+      ensureSeedDataFn
     }) {
       if (!db) throw MissingRequiredArgumentError({ message: 'db required' })
       if (!name) throw MissingRequiredArgumentError({ message: 'name required' })
@@ -62,8 +55,8 @@ const MongoSchemaMigrationRepositorySupport = Trait(superclass =>
 
         const collection = await db.createCollection(name, options)
 
-        await this.ensureIndexes(collection)
-        await this.ensureSeedData(collection)
+        if (ensureIndexesFn) await ensureIndexesFn(collection)
+        if (ensureSeedDataFn) await ensureSeedDataFn(collection)
 
         await schemaVersionRepository.upsert(schemaVersion.withLocked(false))
         return collection
@@ -127,20 +120,6 @@ const MongoSchemaMigrationRepositorySupport = Trait(superclass =>
         return collection
       }
     }
-
-    /**
-     * Initial indexes
-     * @param collection
-     * @returns {Promise<void>}
-     */
-    static async ensureIndexes (collection) { }
-
-    /**
-     * Initial seed data
-     * @param collection
-     * @returns {Promise<void>}
-     */
-    static async ensureSeedData (collection) { }
   }
 )
 

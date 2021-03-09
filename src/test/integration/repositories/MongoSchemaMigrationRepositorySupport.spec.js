@@ -41,13 +41,19 @@ class Repo extends traits(MongoRepository, MongoSchemaMigrationRepositorySupport
       schemaVersionId: Repo.SCHEMA_VERSION_ID,
       pkg,
       migrationsDir: path.resolve(path.join(__dirname, 'migrations', Repo.SCHEMA_VERSION_ID)),
-      options
+      options,
+      ensureIndexesFn: Repo.ensureIndexes,
+      ensureSeedDataFn: Repo.ensureSeedData
     })
   }
 
-  static async ensureIndexes (collection) {}
+  static async ensureIndexes (collection) {
+    Repo.ensureIndexesCalled = true
+  }
 
-  static async ensureSeedData (collection) {}
+  static async ensureSeedData (collection) {
+    Repo.ensureSeedDataCalled = true
+  }
 }
 
 describe('integration tests of MongoSchemaMigrationRepositorySupport', function () {
@@ -66,6 +72,12 @@ describe('integration tests of MongoSchemaMigrationRepositorySupport', function 
     await MongoSchemaVersionRepository.ensureSchema({ db })
 
     const collection = await Repo.ensureSchema({ db })
+    expect(Repo.ensureIndexesCalled).to.be.true()
+    Repo.ensureIndexesCalled = false
+
+    expect(Repo.ensureSeedDataCalled).to.be.true()
+    Repo.ensureSeedDataCalled = false
+
     repo = new Repo({ db, collection })
     const doc = { _id: uuid(), _a: 1 }
     await repo._insert(doc)
