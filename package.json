@@ -2,10 +2,10 @@
   "name": "@northscaler/repository-support",
   "version": "0.2.0-pre.9",
   "description": "Base repositories and supporting error classes",
-  "homepage": "https://gitlab.com/northscaler/protected/repository-support",
+  "homepage": "https://gitlab.com/northscaler-public/repository-support",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/northscaler/protected/repository-support"
+    "url": "https://gitlab.com/northscaler-public/repository-support"
   },
   "engines": {
     "node": ">=12.0.0"
@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "7.12.1",
-    "@northscaler/entity-support": "0.3.0-pre.12",
+    "@northscaler/entity-support": "0.3.0-pre.14",
     "@northscaler/enum-support": "4.2.9",
     "@northscaler/error-support": "3.4.3",
     "@northscaler/mutrait": "1.2.4",
