@@ -99,6 +99,9 @@ const MongoSchemaMigrationRepositorySupport = Trait(superclass =>
           collection = db.collection(name)
         }
 
+        if (ensureIndexesFn) await ensureIndexesFn(collection)
+        if (ensureSeedDataFn) await ensureSeedDataFn(collection)
+
         await schemaVersionRepository.upsert(schemaVersion.withLocked(false))
 
         return collection
