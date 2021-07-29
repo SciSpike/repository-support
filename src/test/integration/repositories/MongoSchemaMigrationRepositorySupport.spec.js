@@ -93,6 +93,25 @@ describe('integration tests of MongoSchemaMigrationRepositorySupport', function 
     expect(semver.eq(schemaVersion.semver, pkg.version)).eq(true)
   })
 
+  it('should ensure seed data and indexes for existing collection with no version', async function () {
+    await dropCollections({ db })
+
+    await db.createCollection('test_collection')
+
+    let collection = await MongoSchemaVersionRepository.ensureSchema({ db })
+    const schemaVersionRepository = new MongoSchemaVersionRepository(collection)
+
+    collection = await Repo.ensureSchema({ db })
+    expect(Repo.ensureIndexesCalled).to.be.true()
+    Repo.ensureIndexesCalled = false
+
+    expect(Repo.ensureSeedDataCalled).to.be.true()
+    Repo.ensureSeedDataCalled = false
+
+    const schemaVersion = await schemaVersionRepository.findById({ id: Repo.SCHEMA_VERSION_ID })
+    expect(semver.eq(schemaVersion.semver, pkg.version)).eq(true)
+  })
+
   it('should perform a schema migration', async function () {
     const baseName = path.resolve(path.join(__dirname, '../repositories/migrations/TestRepo/0.1.0-pre.1'))
     mockfs({
