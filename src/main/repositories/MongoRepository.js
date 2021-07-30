@@ -78,9 +78,9 @@ const MongoRepository = Trait(superclass =>
         { $set: object },
         { ...options, upsert: false }
       ))
-      if (result.result.nModified !== 1) {
-        throw new ObjectNotFoundError({ message: `object with _id ${object._id} must exist`, info: { object } })
-      }
+
+      if (result.modifiedCount !== undefined && result.modifiedCount !== 1) throw new ObjectNotFoundError({ message: `object with _id ${object._id} must exist`, info: { object } })
+      if (result.result && result.result.nModified !== undefined && result.result.nModified !== 1) throw new ObjectNotFoundError({ message: `object with _id ${object._id} must exist`, info: { object } })
 
       return object
     }
