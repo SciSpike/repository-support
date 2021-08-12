@@ -1,6 +1,6 @@
 {
   "name": "@northscaler/repository-support",
-  "version": "0.3.0-rc.1",
+  "version": "0.3.0",
   "description": "Base repositories and supporting error classes",
   "homepage": "https://gitlab.com/northscaler-public/repository-support",
   "repository": {
