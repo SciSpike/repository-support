@@ -31,9 +31,9 @@ const MongoSchemaMigrationRepositorySupport = Trait(superclass =>
       ensureIndexesFn,
       ensureSeedDataFn
     }) {
-      if (!db) throw MissingRequiredArgumentError({ message: 'db required' })
-      if (!name) throw MissingRequiredArgumentError({ message: 'name required' })
-      if (!schemaVersionId) throw MissingRequiredArgumentError({ message: 'schema document id required' })
+      if (!db) throw new MissingRequiredArgumentError({ message: 'db required' })
+      if (!name) throw new MissingRequiredArgumentError({ message: 'name required' })
+      if (!schemaVersionId) throw new MissingRequiredArgumentError({ message: 'schema document id required' })
 
       const collection = await MongoSchemaVersionRepository.ensureSchema({ db })
       const schemaVersionRepository = new MongoSchemaVersionRepository(collection)

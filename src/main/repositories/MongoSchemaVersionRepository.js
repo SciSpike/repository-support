@@ -17,8 +17,8 @@ class MongoSchemaVersionRepository extends traits(MongoRepository) {
   }
 
   static async ensureSchema ({ db, name = MongoSchemaVersionRepository.DEFAULT_COLLECTION_NAME, options }) {
-    if (!db) throw MissingRequiredArgumentError({ message: 'db required' })
-    if (!name) throw MissingRequiredArgumentError({ message: 'name required' })
+    if (!db) throw new MissingRequiredArgumentError({ message: 'db required' })
+    if (!name) throw new MissingRequiredArgumentError({ message: 'name required' })
 
     const collection = ((await db.collections()).map(it => it.collectionName).includes(name))
       ? db.collection(name)
@@ -31,7 +31,7 @@ class MongoSchemaVersionRepository extends traits(MongoRepository) {
 
   constructor (collection) {
     super(...arguments)
-    this._collection = collection || throw MissingRequiredArgumentError({ message: 'collection required' })
+    this._collection = collection || throw new MissingRequiredArgumentError({ message: 'collection required' })
   }
 
   /**
