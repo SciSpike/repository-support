@@ -67,7 +67,7 @@
     "@northscaler/property-decorator": "0.1.2",
     "bluebird": "3.7.2",
     "lodash.clonedeepwith": "4.5.0",
-    "moment-timezone": "0.5.31",
+    "moment-timezone": "0.5.35",
     "semver": "7.3.2"
   },
   "devDependencies": {
