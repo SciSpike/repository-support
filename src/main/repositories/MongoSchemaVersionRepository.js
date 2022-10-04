@@ -1,11 +1,11 @@
 'use strict'
 
 const os = require('os')
-const { traits } = require('@northscaler/mutrait')
+const { traits } = require('@ballistagroup/mutrait')
 const { SchemaVersion } = require('../entities')
 const MongoRepository = require('./MongoRepository')
 const { ObjectNotFoundError } = require('../errors')
-const { MissingRequiredArgumentError } = require('@northscaler/error-support')
+const { MissingRequiredArgumentError } = require('@ballistagroup/error-support')
 const pkg = require('../../../package.json')
 
 class MongoSchemaVersionRepository extends traits(MongoRepository) {

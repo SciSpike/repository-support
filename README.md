@@ -1,4 +1,4 @@
-# `@northscaler/xxx`
+# `@ballistagroup/xxx`
 
 Say something.
 

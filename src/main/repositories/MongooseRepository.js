@@ -3,12 +3,12 @@
 const _ = {
   cloneDeepWith: require('lodash.clonedeepwith')
 }
-const { Trait } = require('@northscaler/mutrait')
+const { Trait } = require('@ballistagroup/mutrait')
 const uuid = require('uuid').v4
-const { MethodNotImplementedError } = require('@northscaler/error-support')
+const { MethodNotImplementedError } = require('@ballistagroup/error-support')
 const { ObjectNotFoundError, ObjectExistsError } = require('../errors')
-const { Enumeration } = require('@northscaler/enum-support')
-const { IllegalArgumentError } = require('@northscaler/error-support')
+const { Enumeration } = require('@ballistagroup/enum-support')
+const { IllegalArgumentError } = require('@ballistagroup/error-support')
 
 const MongooseRepository = Trait(superclass =>
   class extends superclass {

@@ -8,7 +8,7 @@ const expect = chai.expect
 
 const uuid = require('uuid').v4
 const { ObjectNotFoundError } = require('../../../main/errors')
-const { mongoConnect, dropCollections } = require('@northscaler/mongo-test-support')
+const { mongoConnect, dropCollections } = require('@ballistagroup/mongo-test-support')
 const { SchemaVersion } = require('../../../main/entities')
 const { MongoSchemaVersionRepository } = require('../../../main/repositories')
 

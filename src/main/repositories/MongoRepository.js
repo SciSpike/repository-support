@@ -1,8 +1,8 @@
 'use strict'
 
-const { MissingRequiredArgumentError, IllegalArgumentError } = require('@northscaler/error-support')
+const { MissingRequiredArgumentError, IllegalArgumentError } = require('@ballistagroup/error-support')
 const uuid = require('uuid').v1
-const { Trait } = require('@northscaler/mutrait')
+const { Trait } = require('@ballistagroup/mutrait')
 const { UniqueKeyViolationError, ObjectNotFoundError } = require('../errors')
 
 const ERROR_CODES = {

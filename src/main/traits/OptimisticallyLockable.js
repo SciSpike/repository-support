@@ -1,4 +1,4 @@
-const { Trait } = require('@northscaler/mutrait')
+const { Trait } = require('@ballistagroup/mutrait')
 const property = require('@northscaler/property-decorator')
 const { OptimisticLockViolationError } = require('../errors')
 

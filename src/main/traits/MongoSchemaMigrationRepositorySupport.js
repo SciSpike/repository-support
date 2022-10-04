@@ -3,8 +3,8 @@
 const fs = require('fs')
 const MongoSchemaVersionRepository = require('../repositories/MongoSchemaVersionRepository')
 const SchemaVersion = require('../entities/SchemaVersion')
-const { Trait } = require('@northscaler/mutrait')
-const { MissingRequiredArgumentError } = require('@northscaler/error-support')
+const { Trait } = require('@ballistagroup/mutrait')
+const { MissingRequiredArgumentError } = require('@ballistagroup/error-support')
 const semver = require('semver')
 const Promise = require('bluebird')
 

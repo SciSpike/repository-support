@@ -9,9 +9,9 @@ const expect = chai.expect
 const mockfs = require('mock-fs')
 const mockRequire = require('mock-require')
 
-const { mongoConnect, dropCollections } = require('@northscaler/mongo-test-support')
+const { mongoConnect, dropCollections } = require('@ballistagroup/mongo-test-support')
 const uuid = require('uuid').v4
-const { traits } = require('@northscaler/mutrait')
+const { traits } = require('@ballistagroup/mutrait')
 const { MongoRepository, MongoSchemaVersionRepository } = require('../../../main/repositories')
 const { MongoSchemaMigrationRepositorySupport } = require('../../../main/traits')
 const { SchemaVersion } = require('../../../main/entities')

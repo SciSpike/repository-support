@@ -5,11 +5,11 @@ const chai = require('chai')
 chai.use(require('dirty-chai'))
 const expect = chai.expect
 
-const { mongoConnect } = require('@northscaler/mongo-test-support')
+const { mongoConnect } = require('@ballistagroup/mongo-test-support')
 const uuid = require('uuid').v4
-const { traits } = require('@northscaler/mutrait')
+const { traits } = require('@ballistagroup/mutrait')
 const { MongoRepository } = require('../../../main/repositories')
-const { IllegalArgumentError } = require('@northscaler/error-support')
+const { IllegalArgumentError } = require('@ballistagroup/error-support')
 const { UniqueKeyViolationError, ObjectNotFoundError } = require('../../../main/errors')
 
 class Repo extends traits(MongoRepository) {
