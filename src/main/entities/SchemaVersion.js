@@ -1,8 +1,8 @@
 'use strict'
 
-const { traits } = require('@northscaler/mutrait')
-const { IllegalArgumentError } = require('@northscaler/error-support')
-const { Identifiable, SemanticallyVersionable } = require('@northscaler/entity-support').traits
+const { traits } = require('@ballistagroup/mutrait')
+const { IllegalArgumentError } = require('@ballistagroup/error-support')
+const { Identifiable, SemanticallyVersionable } = require('@ballistagroup/entity-support').traits
 const property = require('@northscaler/property-decorator')
 
 class SchemaVersion extends traits(Identifiable, SemanticallyVersionable) {

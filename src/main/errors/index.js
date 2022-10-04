@@ -1,6 +1,6 @@
 'use strict'
 
-const { CodedError } = require('@northscaler/error-support')
+const { CodedError } = require('@ballistagroup/error-support')
 const MongoRepositoryError = CodedError({ name: 'MongoRepositoryError' })
 const MongooseRepositoryError = MongoRepositoryError.subclass({ name: 'MongooseRepositoryError' })
 
