@@ -28,7 +28,7 @@ describe('integration tests of MongoRepository', () => {
   before(async function () {
     this.timeout(10000)
 
-    db = await mongoConnect(process.env.CI_COMMIT_SHA ? { host: 'mongo', port: 27017 } : undefined)
+    db = await mongoConnect(process.env.CI_COMMIT_SHA ? { host: 'localhost', port: 37017 } : undefined)
 
     try {
       for (const c of await db.collections()) {
