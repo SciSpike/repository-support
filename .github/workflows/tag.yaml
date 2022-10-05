@@ -24,6 +24,11 @@ jobs:
           node-version: 16.15.0
           registry-url: 'https://registry.npmjs.org'
           scope: '@ballistagroup'
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.7.0
+        with:
+          mongodb-version: 5.0
+          mongodb-port: 37017
       - name: Cache node modules
         uses: actions/cache@v2
         env:

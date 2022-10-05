@@ -38,7 +38,7 @@ jobs:
         uses: supercharge/mongodb-github-action@1.7.0
         with:
           mongodb-version: 5.0
-          mongodb-port: 27017
+          mongodb-port: 37017
       - run: npm run build
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
