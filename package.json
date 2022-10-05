@@ -1,6 +1,6 @@
 {
   "name": "@ballistagroup/repository-support",
-  "version": "0.4.0-rc.0",
+  "version": "0.4.0",
   "description": "Base repositories and supporting error classes",
   "homepage": "https://github.com/ballistaGroup/repository-support",
   "repository": {
